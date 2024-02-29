@@ -1,0 +1,23 @@
+For Django
+
+To run = python manage.py runserver
+To migrate =  python manage.py makemigrations then python manage.py migrate
+To make a superuser(admin account) = python manage.py createsuperuser
+To collectstatic files = python manage.py collectstatic
+
+For Celery = celery -A SeeHearFeel worker -l info -P threads
+
+if db.sqlite3 deleted ? python manage.py migrate --run-syncdb
+
+Required
+Redis
+everything in requirements.txt
+A good laptop
+
+Process
+
+1 - Start 2 CMDs with Virtual env Enabled
+2 - Migrate if running for the first time / any changes to be made
+2.5 - Run collectstatic command
+3 - Run celery
+4 - Run Django Server

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if video %}
+{% for vid in video %}
+<ul id="nav-black" background-color: #FC6C85;>
+  <li class="nav-black-li"><a class="active" href="{% url 'show_video' vid.id %}">{{ vid.video_file_name }}</a></li>
+</ul>
+{% endfor %}
+{% else %}
+<div class="form-style" align="middle">
+  <a href="{% url 'add_file' %}">
+    <button class="button">Start Adding Videos</button>
+  </a>
+</div>
+{% endif %} {% endblock %}

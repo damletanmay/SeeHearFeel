@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+{% if video %}
+
+<div class="container container-fluid main">
+  <h4 class="text-center"> {{ video.video_file_name }}</h4>
+  <video id="myVideo" class="embed-responsive embed-responsive-16by9 video-fluid" controls = "controls">
+    <source class="embed-responsive-item" src="{{ video.video.url }}" type="video/mp4">
+    <source class="embed-responsive-item" src="E:/Study/Windsor/Sem I/Advanced Software Engineering/SeeHearFeel/Test Cases/Sample.webm" type="video/webm">
+    <track label="English" kind="subtitles" srclang="en" src="{{ video.subtitles.url }}" default>
+  </video>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var video = document.getElementById('myVideo');
+
+    // Check if the browser supports the AudioTrackList and AudioTrack APIs
+    if (video.audioTracks && video.audioTracks.length > 1) {
+      // Enable multiple audio tracks
+      video.audioTracks[0].enabled = true;
+      video.audioTracks[1].enabled = true;
+    }
+  });
+</script>
+
+{% endif %} {% endblock %}

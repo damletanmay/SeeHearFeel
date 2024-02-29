@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title> Login </title>
+{% endblock %}
+
+{% block login %}
+active
+{% endblock %}
+
+{% block content %}
+
+<div class="container container-fluid main">
+
+  <h1 class="title text-center">Login</h1>
+
+  {% if error %}
+  <h3 class="alert alert-danger" role="alert">{{ error }}</h3>
+  {% endif %}
+
+
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <br/>
+    <br/>
+    <p class="text-center">Username:
+      <input type="text" name='username' />
+      <br/>
+      <br/>
+    </p>
+    <p class="text-center">Password:
+      <input type="password" name='pass' />
+      <br/>
+      <br/>
+    </p>
+    <button type="submit" name="button" class=" text-center btn-lg btn btn-primary">Login</button>
+  </form>
+
+  <p class="text-center">Don't Have An Account Yet ? Click Here To  <a href="{% url 'signup' %}">Signup</a> </p>
+</div>
+
+{% endblock %}

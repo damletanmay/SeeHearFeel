@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title> Home </title>
+{% endblock %}
+
+{% block home %}
+active
+{% endblock %}
+
+{% block content %}
+
+<!-- TODO: add content here -->
+
+{% if not request.user.is_authenticated %}
+<h1 class="text-center">Welcome to See Hear Feel</h1>
+<h3 class="text-center"> <a href="{% url 'signup' %}">Signup</a> to start</h3>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+
+  {% if not video %}
+
+    <h3 class="text-center"><a href="{% url 'add_file' %}">Start Adding Videos</a></h3>
+
+  {% endif %}
+
+  {% if video %}
+    <div class="container container-fluid main">
+      {% for v in video  %}
+      <h3 class="text-center"> {{ v.video.name }} </h3>
+      <video class="embed-responsive embed-responsive-16by9 video-fluid" controls = "controls">
+        <source class="embed-responsive-item" src="{{v.video.url}}">
+      </video>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+{% endif %}
+
+{% endblock %}

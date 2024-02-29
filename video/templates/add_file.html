@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block title %}
+<title> Add File </title>
+{% endblock %} {% block add_file %} active {% endblock %}
+
+{% block links %}
+{% load static %}
+
+<script src="{% static 'js/search.js' %}" charset="utf-8"></script>
+<script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function () {
+        {% if task_id %}
+        var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+        CeleryProgressBar.initProgressBar(progressUrl, {
+            onProgress: customProgress,
+            onSuccess: customSuccess,
+            onResult:customResult,
+            onError: customError,
+            barColors: customBarColors,
+        });
+        console.log(CeleryProgressBar);
+        {% endif %}
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container text-center">
+    <div class='progress-wrapper'>
+        <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+    </div>
+
+    <h3 id="progress-bar-message"></h3>
+    <div id="celery-result">
+</div>
+
+{% if error %}
+  <h3 class="alert alert-danger text-center" role="alert">{{ error }}</h3>
+{% endif %}
+
+{% if success %}
+  <h3 class="alert alert-success text-center" role="success">{{ success }}</h3>
+{% endif %}
+
+<div class="container container-fluid main form-style ">
+  <form enctype="multipart/form-data" class="site-form" method="POST" action="{% url 'add_file' %}">
+    {% csrf_token %}
+    <br>
+    <br>
+    <div>
+      <h4 for="video" class="form-label">Upload Video (only .mp4) </h4>
+      <input class="form-control form-control-lg" name="video" type="file" accept="video/mp4" required>
+    </div>
+    <br>
+    <br>
+    <div>
+      <h4 for="subtitles" class="form-label">Upload Subtitles (only .vtt) </h4>
+      <input class="form-control form-control-lg" name="subtitles" type="file" accept=".vtt" required>
+    </div>
+    <br>
+    <br>
+    <div class="col text-center">
+      <button type="submit" name="button" class=" text-center btn-lg btn btn-primary">Upload</button>
+    </div>
+  </form>
+</div>
+
+
+{% endblock %}
